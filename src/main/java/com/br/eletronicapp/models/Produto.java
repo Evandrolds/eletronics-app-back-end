@@ -19,7 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ProdutoModel {
+public class Produto {
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

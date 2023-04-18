@@ -1,6 +1,6 @@
-package com.br.eletronicapp.contato.services;
+package com.br.eletronicapp.services;
 
-import com.br.eletronicapp.contato.repositoties.ContatoRepositoty;
+import com.br.eletronicapp.repositories.ContatoRepositoty;
 import com.br.eletronicapp.models.Contato;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

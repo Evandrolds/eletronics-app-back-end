@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.br.eletronicapp.models.ProdutoModel;
+import com.br.eletronicapp.models.Produto;
 import com.br.eletronicapp.repositories.ProdutoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,22 +21,22 @@ public class ProdutoService {
     
     private final ProdutoRepository repository;
 
-    public List<ProdutoModel> getAllProdutos() {
+    public List<Produto> getAllProdutos() {
         return repository.findAll();
     }
    
 
-    public void insertProduto(ProdutoModel eletronic) {
+    public void insertProduto(Produto eletronic) {
         repository.save(eletronic);
     }
 
-    public ProdutoModel findProdutoById(Integer id) {
+    public Produto findProdutoById(Integer id) {
         return repository.findById(id).get();
     }
 
-    public ProdutoModel updateProduto( ProdutoModel eletronic, Integer id) {
+    public Produto updateProduto( Produto eletronic, Integer id) {
         
-        ProdutoModel model = repository.findById(id).get();
+        Produto model = repository.findById(id).get();
         eletronic.setNome(model.getNome());
         eletronic.setDescricao(model.getDescricao());
         eletronic.setFormaDepagamento(model.getFormaDepagamento());
@@ -60,7 +60,7 @@ public class ProdutoService {
 
             System.out.println(filePath);
 
-            ProdutoModel model = repository.findById(id).get();
+            Produto model = repository.findById(id).get();
             model.setImagem(filePath);
 
 

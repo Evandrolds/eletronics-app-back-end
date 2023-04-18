@@ -1,4 +1,4 @@
-package com.br.eletronicapp.contato.repositoties;
+package com.br.eletronicapp.repositories;
 
 import com.br.eletronicapp.models.Contato;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,8 @@
 package com.br.eletronicapp.config;
 
-import com.br.eletronicapp.contato.repositoties.ContatoRepositoty;
+import com.br.eletronicapp.repositories.ContatoRepositoty;
 import com.br.eletronicapp.models.Contato;
-import com.br.eletronicapp.models.ProdutoModel;
+import com.br.eletronicapp.models.Produto;
 import com.br.eletronicapp.repositories.ProdutoRepository;
 import java.util.Arrays;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class StartingDatabase implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         
-        ProdutoModel prod = new ProdutoModel();
+        Produto prod = new Produto();
         prod.setId(null);
         prod.setImagem("D:\\WorkSpaceVisualCode\\Eletronic-App\\docs\\assets\\img-CPU.jpg");
         prod.setNome("Computador");
@@ -33,7 +33,7 @@ public class StartingDatabase implements CommandLineRunner {
         prod.setFormaDepagamento("Pagamento a vista com 10% de desconto ou em 12 vezes no cartão");
         prod.setPreco(3700.0);
         
-        ProdutoModel prod1 = new ProdutoModel();
+        Produto prod1 = new Produto();
         prod1.setId(null);
         prod1.setImagem("D:\\WorkSpaceVisualCode\\Eletronic-App\\docs\\assets\\img-notebook.jpg");
         prod1.setNome("LepTop");
