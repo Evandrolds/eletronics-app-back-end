@@ -1,6 +1,8 @@
 package com.br.eletronicapp.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,14 +22,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class Produto {
-     @Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-     @Column(length = 100)
+    @Column(length = 100)
     private String nome;
     private String descricao;
     private String formaDepagamento;
+    @Column(name = "imagem_url")
     private String imagem;
     private Integer estoque;
     private Double preco;
+    
+    
 }

@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,35 +25,52 @@ import org.springframework.web.multipart.MultipartFile;
 public class produtoController {
     
     private final ProdutoService service;
-
+    
+    // Get All Products 
     @GetMapping
     public ResponseEntity<List<Produto>> getAll() {
         return new ResponseEntity<>(service.getAllProdutos(), HttpStatus.OK);
     }
     
-    @PostMapping
-    public ResponseEntity<Produto> insert(@RequestBody Produto eletronic) {
-        service.insertProduto(eletronic);
+    // Insert Products
+    @PostMapping("/insert")
+    public ResponseEntity<Produto> insert(@RequestBody Produto produto) {
+        service.insertProduto(produto);
         return ResponseEntity.ok().build();
     }
-
+    // Product find by id
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto>findById(@PathVariable("id") Integer id){
+        return new ResponseEntity<>(service.findProdutoById(id),HttpStatus.OK);
+    }
+    
+    // Product update
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Produto>update(@RequestBody Produto produto,@PathVariable("id") Integer id){
+        
+        return ResponseEntity.ok().body(service.updateProduto(produto,id));
+    }
+    
+    // Product image upload
     @PatchMapping(path ="/upload-image/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Produto> upload(@PathVariable("id") Integer id, @RequestPart("file") MultipartFile uploadFile) {
+        
         service.updatePicture(id, uploadFile);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/image/{id}")
+    // Get image product
+    @GetMapping("/produto-/{id}")
     public ResponseEntity<byte[]> getImage(@PathVariable("id") Integer id) {
 
         try {
-            Produto produtoModel = service.findProdutoById(id);
+            Produto produto= service.findProdutoById(id);
 
-            byte[] image = Files.readAllBytes(Paths.get(produtoModel.getImagem()));
-
+            byte[] image = Files.readAllBytes(Paths.get(produto.getImagem()));
             return ResponseEntity
                     .ok()
                     .contentType(MediaType.IMAGE_JPEG)
                     .body(image);
+           
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
