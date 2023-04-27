@@ -4,58 +4,79 @@ package com.br.eletronicapp.services;
  *
  * @author Evandro
  */
+
+import com.br.eletronicapp.dto.ProdutoDTO;
+import com.br.eletronicapp.exceptions.RecordException;
 import java.io.File;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.eletronicapp.models.Produto;
 import com.br.eletronicapp.repositories.ProdutoRepository;
-import java.util.Optional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@Validated
 @AllArgsConstructor
 public class ProdutoService {
 
     private final ProdutoRepository repository;
-
-    public List<Produto> getAllProdutos() {
-        return repository.findAll();
+    private final ModelMapper modelProdutoMapper;
+    private final FileUploadService fileUploadService;
+     
+    public List<ProdutoDTO> getAllProdutos() {
+        return repository.findAll()
+                .stream()
+                .map(this::produtoMapperDTO)
+                .collect(ArrayList::new,
+                ArrayList::add, ArrayList::addAll);
     }
 
-    public void insertProduto(Produto produto) {
-        repository.save(produto);
+    public ProdutoDTO insertProduto(@Valid Produto produto) {
+        return produtoMapperDTO(repository.save(produto));
     }
 
-    public Produto findProdutoById(Integer id) {
-        Optional<Produto> p = repository.findById(id);
-        return p.get();
+    public ProdutoDTO findProdutoById(@PathVariable @NotNull @Positive Integer id) throws RecordException {
+         Produto p = repository.findById(id)
+                 .orElseThrow(() -> new RecordException("Product ID not found!"));
+         return produtoMapperDTO(p);
     }
 
-    public Produto updateProduto(Produto produto, Integer id) {
+    public ProdutoDTO updateProduto(@Valid Produto produto, @NotNull @Positive Integer id) throws RecordException {
 
-        Produto model = repository.findById(id).get();
-        model.setNome(produto.getNome());
-        model.setDescricao(produto.getDescricao());
-        model.setFormaDepagamento(produto.getFormaDepagamento());
-        model.setImagem(produto.getImagem());
-        return repository.save(model);
+        return repository.findById(id).map(newRecord ->{
+        newRecord.setNome(produto.getNome());
+        newRecord.setDescricao(produto.getDescricao());
+        newRecord.setFormaDepagamento(produto.getFormaDepagamento());
+        newRecord.setImagem(produto.getImagem());
+        newRecord.setEstoque(produto.getEstoque());
+        newRecord.setPreco(produto.getPreco());
+        return produtoMapperDTO(repository.save(newRecord));
+        }).orElseThrow(()-> new RecordException("Id not found!"));
+       
     }
 
-    public void deleteProdutoById(Integer id) {
-        repository.deleteById(id);
+    public void deleteProdutoById(@PathVariable @NotNull @Positive Integer id) throws RecordException {
+        repository.delete(repository.findById(id).orElseThrow(()-> new RecordException("Id not found!")));
     }
-    // Loading product images
-
-    @Autowired
-    private FileUploadService fileUploadService;
-
-    public void updatePicture(Integer id, MultipartFile webFile) {
+    
+    /*
+      Atualizando a imagem que está vindo da URI webserve.
+      Salnado a imagem no disco.
+      Passando a imagem atualizado para o produto específico
+    */
+    public void updatePicture(@PathVariable @Valid Integer id, MultipartFile webFile) {
         try {
-            //ver -> application.properties -> file.upload.folder
+            //Vizualisar no application.properties a configuração no file.upload.folder
 
             File fileDisk = fileUploadService.saveOnDisk(webFile, id);
 
@@ -71,5 +92,7 @@ public class ProdutoService {
         }
 
     }
-
+     private ProdutoDTO produtoMapperDTO(Produto produto){
+        return modelProdutoMapper.map(produto, ProdutoDTO.class);
+    }
 }

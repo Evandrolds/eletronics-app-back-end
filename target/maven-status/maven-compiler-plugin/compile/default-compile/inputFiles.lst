@@ -1,13 +1,16 @@
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\repositories\ProdutoRepository.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\services\FileUploadService.java
+D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\dto\mapper\ProdutoMapper.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\controllers\produtoController.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\config\WebConfig.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\services\ContatoService.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\config\StartingDatabase.java
+D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\dto\ProdutoDTO.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\EletronicAppApplication.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\services\ProdutoService.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\controllers\ContatoController.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\repositories\ContatoRepositoty.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\models\ImageFile.java
+D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\exceptions\RecordException.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\models\Contato.java
 D:\NetBeansProjects\EletronicApp\src\main\java\com\br\eletronicapp\models\Produto.java

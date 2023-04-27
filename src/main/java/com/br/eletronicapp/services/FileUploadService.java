@@ -14,7 +14,9 @@ public class FileUploadService {
 
     @Value("${file.upload.folder}")
     private String fileUploadFolder;
-
+    
+    
+    // Metodo pata salvar a imagem no disco
     public File saveOnDisk(MultipartFile webFile, Integer id) throws Exception {
 
         //Pegando diretório pelo arquivo.properties (fileUploadFolder)

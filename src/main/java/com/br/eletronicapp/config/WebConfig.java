@@ -7,7 +7,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- *
+ * Configurando o cors para utilizar a porta do servidor web da aplicação que está
+ * executando em porta diferente do meu back-end.
  * @author Evandro
  */
 @EnableWebMvc

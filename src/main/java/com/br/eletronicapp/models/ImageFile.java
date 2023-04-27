@@ -2,6 +2,7 @@ package com.br.eletronicapp.models;
 
 
 import jakarta.persistence.Lob;
+import jakarta.persistence.MappedSuperclass;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,7 +13,7 @@ import lombok.Data;
  * @author Evandro
  */
 @Data
-//@MappedSuperclass
+@MappedSuperclass
 public class ImageFile {
 
     @Lob
